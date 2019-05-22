@@ -19,4 +19,14 @@ class User extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @param string $size
+     * @return string
+     * 用户默认头像
+     */
+    public function gravatar($size = '100')
+    {
+        return "https://www.gravatar.com/avatar/" . md5(strtolower($this->email)) . "?d=retro&s=48";
+    }
 }
