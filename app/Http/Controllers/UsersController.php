@@ -6,6 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\User;
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        //只有登录用户才能访问
+        $this->middleware('auth',[
+            'except'=>['show','create','store','index']
+        ]);
+
+        //游客才能访问登录页面
+        $this->middleware('guest',[
+           'only'=>['create']
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -45,6 +58,7 @@ class UsersController extends Controller
            'email'=>$request->email,
            'password'=>bcrypt($request->password),
         ]);
+        Auth::login($user);
         session()->flash('success','欢迎，您将在这里开启一段新的旅程~');
         return redirect()->route('users.show',[$user]);
     }
