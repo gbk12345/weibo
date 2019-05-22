@@ -7,7 +7,7 @@
 </head>
 <body>
 @include('layouts._header')
-<div class="container">
+<div class="container" style="margin-top: 20px;">
     @yield('content')
     @include('layouts._footer')
 </div>
